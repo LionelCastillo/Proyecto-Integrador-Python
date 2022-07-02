@@ -33,8 +33,13 @@ def menu_principal():
     print('6:Eliminar cliente')
     print('7:Salir')
 
-    numero = int(input('ingrese el numero de la funcion: '))
-    seleccion_menu(numero)
+    while True:
+     try:
+         numero = int(input("Ingrese una opcion del menu pricipal: "))
+         seleccion_menu(numero)
+         break
+     except ValueError:
+         print("No ha ingresado un numero entero, vuelva a intentar")
 
 
 def seleccion_menu(numero):
@@ -70,11 +75,31 @@ def nuevo_cliente():
  
     id_cliente = herramientas.generar_id()
     nombre_cliente = str(input('ingrese el nombre: '))
-    dni_cliente = int(input('ingrese el DNI: '))
-    telefono_cliente = int(input('ingrese el telefono: '))
-    dia_cliente = int(input('ingrese el dia del turno: '))
+    while True:
+            try:
+                dni_cliente = int(input('ingrese el dni: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")
+    while True:
+            try:
+                telefono_cliente = int(input('ingrese el telefono: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")
+    while True:
+            try:
+                dia_cliente = int(input('ingrese el dia del turno: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")                        
     mes_cliente = str(input('ingrese el mes del turno: '))
-    hora_cliente = int(input('ingrese la hora del turno: '))
+    while True:
+            try:
+                hora_cliente = int(input('ingrese la hora del turno: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")
 
     csvfile = open('clientes.csv', 'a') 
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -105,22 +130,50 @@ def modificar_datos_turno():
         for r in data:
             print(r['id'], r['nombre'])
 
-    numero_cliente = int(input('ingrese el numero del cliente a modificar: '))
+    while True:
+     try:
+         numero_cliente = int(input("Ingrese el numero del cliente a modificar: "))
+         break
+     except ValueError:
+         print("No ha ingresado un numero entero, vuelva a intentar")
 
     with open('clientes.csv') as c:
         datos = list(csv.DictReader(c))
 
         orden_cliente = numero_cliente - 1
+
         print('nombre actual:', datos[orden_cliente]['nombre'])
         nombre_cliente = str(input('ingrese el nuevo nombre: '))
-        print('dni actual:', datos[orden_cliente]['dni'])
-        dni_cliente = int(input('ingrese el nuevo dni: '))
-        print('telefono actual:', datos[orden_cliente]['telefono'])
-        telefono_cliente = int(input('ingrese el nuevo telefono: '))
-        print('dia actual:', datos[orden_cliente]['dia'])
-        dia_cliente = int(input('ingrese el dia del turno: '))
+        while True:
+            try:
+                print('dni actual:', datos[orden_cliente]['dni'])
+                dni_cliente = int(input('ingrese el nuevo dni: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")
+        while True:
+            try:
+                print('telefono actual:', datos[orden_cliente]['telefono'])
+                telefono_cliente = int(input('ingrese el nuevo telefono: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")
+        while True:
+            try:
+                print('dia actual:', datos[orden_cliente]['dia'])
+                dia_cliente = int(input('ingrese el dia del turno: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")           
         print('mes actual:', datos[orden_cliente]['mes'])
         mes_cliente = str(input('ingrese el mes del turno: '))
+        while True:
+            try:
+                print('hora actual:', datos[orden_cliente]['hora'])
+                hora_cliente = int(input('ingrese la hora del turno: '))
+                break
+            except ValueError:
+                print("No ha ingresado un numero, vuelva a intentar")  
         print('hora actual:', datos[orden_cliente]['hora'])
         hora_cliente = int(input('ingrese la hora del turno: '))
    
@@ -238,7 +291,7 @@ if __name__ == '__main__':
     'ortodoncia': 2500, 
     'cirugia': 4000}
 
-    with open('clientes.csv', 'w') as csvfile:
+    with open('clientes.csv', 'w',  newline='') as csvfile:
         fieldnames = ['id', 'nombre', 'dni', 'telefono', 'dia', 'mes', 'hora'] 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -273,7 +326,7 @@ if __name__ == '__main__':
                         'hora': 18})                                
 
     print('Empieza el programa')
-    
+
     menu_principal()                                      
 
-                          
+                         
